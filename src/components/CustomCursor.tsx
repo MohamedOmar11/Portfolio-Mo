@@ -15,7 +15,7 @@ export function CustomCursor() {
     const handleMouseOver = () => setIsHovering(true);
     const handleMouseOut = () => setIsHovering(false);
 
-    window.addEventListener('mousemove', updateMousePosition);
+    window.addEventListener('mousemove', updateMousePosition, { passive: true });
     
     document.querySelectorAll('a, button, input, textarea, select, .cursor-pointer').forEach(el => {
       el.addEventListener('mouseenter', handleMouseOver);
@@ -39,7 +39,7 @@ export function CustomCursor() {
         y: mousePosition.y - 16,
         scale: isHovering ? 2 : 1,
       }}
-      transition={{ type: 'spring', stiffness: 500, damping: 28, mass: 20 }}
+      transition={{ type: 'tween', ease: 'backOut', duration: 0.15 }}
     />
   );
 }
