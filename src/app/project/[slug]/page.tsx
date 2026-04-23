@@ -2,6 +2,7 @@ import dbConnect from '@/lib/mongodb';
 import Project from '@/models/Project';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { CustomCursor } from '@/components/CustomCursor';
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
   await dbConnect();
@@ -12,7 +13,8 @@ export default async function ProjectPage({ params }: { params: { slug: string }
   }
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black text-white relative">
+      <CustomCursor />
       <div className="px-8 pt-28 pb-20">
         <div className="container mx-auto">
           <div className="mb-10 flex items-center justify-between gap-6">
