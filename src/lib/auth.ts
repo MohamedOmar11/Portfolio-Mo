@@ -19,10 +19,12 @@ export const authOptions: NextAuthOptions = {
         await dbConnect();
         const user = await User.findOne({ email: credentials.email });
         if (!user) {
+          console.error('Auth error: No user found for email', credentials.email);
           throw new Error('No user found');
         }
         const passwordMatch = await bcrypt.compare(credentials.password, user.passwordHash);
         if (!passwordMatch) {
+          console.error('Auth error: Incorrect password for email', credentials.email);
           throw new Error('Incorrect password');
         }
         return { id: user._id.toString(), email: user.email };

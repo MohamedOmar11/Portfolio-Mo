@@ -8,7 +8,7 @@ export function Navbar() {
     <motion.nav 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 2 }}
+      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 2.8 }}
       className="fixed top-0 left-0 right-0 z-50 px-8 py-6 mix-blend-difference flex justify-between items-center text-white"
     >
       <Link href="/" className="text-xl font-bold uppercase tracking-widest cursor-pointer">

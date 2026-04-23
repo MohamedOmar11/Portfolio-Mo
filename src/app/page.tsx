@@ -35,17 +35,24 @@ export default function Home() {
       anchor.addEventListener('click', scrollFn);
     });
 
+    // Remove overflow hidden after preloader finishes
+    const timer = setTimeout(() => {
+      document.documentElement.style.overflow = 'auto';
+      document.body.style.overflow = 'auto';
+    }, 2500);
+
     return () => {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.removeEventListener('click', scrollFn);
       });
+      clearTimeout(timer);
     };
   }, []);
 
   if (!mounted) return null;
 
   return (
-    <main className="bg-black min-h-screen text-white font-sans selection:bg-white selection:text-black">
+    <main className="bg-black min-h-screen text-white font-sans selection:bg-white selection:text-black relative">
       <CustomCursor />
       <Preloader />
       <Navbar />

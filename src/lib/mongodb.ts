@@ -1,6 +1,12 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio';
+const MONGODB_URI = process.env.MONGODB_URI;
+
+if (!MONGODB_URI) {
+  console.warn('⚠️ MONGODB_URI is not defined. Connecting to localhost fallback...');
+}
+
+const uri = MONGODB_URI || 'mongodb://localhost:27017/portfolio';
 
 let cached = (global as any).mongoose;
 
@@ -18,8 +24,12 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(uri, opts).then((mongoose) => {
+      console.log('✅ Successfully connected to MongoDB');
       return mongoose;
+    }).catch(err => {
+      console.error('❌ Error connecting to MongoDB:', err);
+      throw err;
     });
   }
   
