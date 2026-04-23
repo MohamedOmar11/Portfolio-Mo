@@ -6,13 +6,22 @@ import { useEffect, useState } from 'react';
 export function Preloader() {
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [shouldAnimate, setShouldAnimate] = useState(true);
 
   useEffect(() => {
+    const hasLoaded = sessionStorage.getItem('preloader_shown');
+    if (hasLoaded) {
+      setLoading(false);
+      setShouldAnimate(false);
+      return;
+    }
+
     // Simulate loading progress
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
+          sessionStorage.setItem('preloader_shown', 'true');
           setTimeout(() => setLoading(false), 500); // Wait a bit after 100%
           return 100;
         }
@@ -23,6 +32,8 @@ export function Preloader() {
 
     return () => clearInterval(interval);
   }, []);
+
+  if (!shouldAnimate && !loading) return null;
 
   return (
     <AnimatePresence>

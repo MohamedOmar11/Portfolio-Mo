@@ -29,7 +29,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 2.8, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 1.2, delay: typeof window !== 'undefined' && sessionStorage.getItem('preloader_shown') ? 0 : 2.8, ease: [0.76, 0, 0.24, 1] }}
           className="overflow-hidden"
         >
           <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-extrabold tracking-tighter leading-[0.85] mb-6">
@@ -43,7 +43,7 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 3.2 }}
+          transition={{ duration: 1, delay: typeof window !== 'undefined' && sessionStorage.getItem('preloader_shown') ? 0.3 : 3.2 }}
           className="text-xl md:text-2xl text-gray-400 max-w-2xl mb-12 font-light"
         >
           {subheadline}
@@ -52,7 +52,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 3.5, ease: [0.76, 0, 0.24, 1] }}
+          transition={{ duration: 0.8, delay: typeof window !== 'undefined' && sessionStorage.getItem('preloader_shown') ? 0.6 : 3.5, ease: [0.76, 0, 0.24, 1] }}
           className="flex flex-col sm:flex-row items-center gap-6"
         >
           <a href="#work" className="group flex items-center space-x-3 bg-white text-black px-10 py-5 rounded-full font-bold text-lg hover:scale-105 transition-transform duration-300">
@@ -69,7 +69,7 @@ export function Hero() {
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-50"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 0.5, y: [0, 10, 0] }}
-        transition={{ delay: 4.5, duration: 2, repeat: Infinity }}
+        transition={{ delay: typeof window !== 'undefined' && sessionStorage.getItem('preloader_shown') ? 1 : 4.5, duration: 2, repeat: Infinity }}
       >
         <span className="text-xs uppercase tracking-widest mb-2">Scroll</span>
         <div className="w-[1px] h-12 bg-white/50" />

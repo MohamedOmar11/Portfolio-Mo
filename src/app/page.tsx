@@ -35,17 +35,25 @@ export default function Home() {
       anchor.addEventListener('click', scrollFn);
     });
 
-    // Remove overflow hidden after preloader finishes
-    const timer = setTimeout(() => {
+    let timer: NodeJS.Timeout;
+    
+    // Check if preloader has already been shown this session
+    if (sessionStorage.getItem('preloader_shown')) {
       document.documentElement.style.overflow = 'auto';
       document.body.style.overflow = 'auto';
-    }, 2500);
+    } else {
+      // Remove overflow hidden after preloader finishes
+      timer = setTimeout(() => {
+        document.documentElement.style.overflow = 'auto';
+        document.body.style.overflow = 'auto';
+      }, 2500);
+    }
 
     return () => {
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.removeEventListener('click', scrollFn);
       });
-      clearTimeout(timer);
+      if (timer) clearTimeout(timer);
     };
   }, []);
 
