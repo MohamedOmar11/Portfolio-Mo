@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 
 export function PortfolioGrid() {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<any[]>([]);
   const [filter, setFilter] = useState('All');
 
   useEffect(() => {

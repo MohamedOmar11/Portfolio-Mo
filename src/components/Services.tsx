@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 
 export function Services() {
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState<any[]>([]);
 
   useEffect(() => {
     fetch('/api/services')

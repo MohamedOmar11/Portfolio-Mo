@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Trash2, Download } from 'lucide-react';
 
 export default function LeadsPage() {
-  const [leads, setLeads] = useState([]);
+  const [leads, setLeads] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

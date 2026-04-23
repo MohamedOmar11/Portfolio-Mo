@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Quote } from 'lucide-react';
 
 export function Testimonials() {
-  const [testimonials, setTestimonials] = useState([]);
+  const [testimonials, setTestimonials] = useState<any[]>([]);
 
   useEffect(() => {
     fetch('/api/testimonials')
