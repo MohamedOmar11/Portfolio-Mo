@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
+import { useContent } from '@/components/ContentProvider';
 
 export function Services() {
+  const { get } = useContent();
   const [services, setServices] = useState<any[]>([]);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export function Services() {
           viewport={{ once: true }}
           className="text-6xl md:text-8xl font-extrabold tracking-tighter uppercase mb-6"
         >
-          What We Do
+          {get('services.headline', 'What We Do')}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}
@@ -41,7 +43,7 @@ export function Services() {
           transition={{ delay: 0.2 }}
           className="text-xl text-gray-500 max-w-2xl mx-auto"
         >
-          Tailored solutions designed to elevate your brand.
+          {get('services.subheadline', 'Tailored solutions designed to elevate your brand.')}
         </motion.p>
       </div>
 
@@ -70,10 +72,16 @@ export function Services() {
               ))}
             </ul>
 
-            <button className="w-full bg-gray-100 text-black py-4 rounded-xl font-bold flex items-center justify-center space-x-2 group-hover:bg-black group-hover:text-white transition-colors">
-              <span>Get Started</span>
+            <a
+              href="#contact"
+              onClick={() => {
+                window.sessionStorage.setItem('selectedService', service.title);
+              }}
+              className="w-full bg-gray-100 text-black py-4 rounded-xl font-bold flex items-center justify-center space-x-2 group-hover:bg-black group-hover:text-white transition-colors"
+            >
+              <span>{get('services.cta', 'Get Started')}</span>
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </a>
           </motion.div>
         ))}
       </div>

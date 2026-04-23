@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Quote } from 'lucide-react';
+import { useContent } from '@/components/ContentProvider';
 
 export function Testimonials() {
+  const { get } = useContent();
   const [testimonials, setTestimonials] = useState<any[]>([]);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export function Testimonials() {
           viewport={{ once: true }}
           className="text-6xl md:text-8xl font-extrabold tracking-tighter uppercase mb-24 text-center"
         >
-          Client Love
+          {get('testimonials.headline', 'Client Love')}
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
@@ -43,7 +45,7 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-zinc-900 p-12 rounded-3xl border border-white/10 hover:border-white/30 transition-colors"
+              className="bg-zinc-900 p-12 rounded-3xl border border-white/10 hover:border-[color:var(--accent)]/50 transition-colors"
             >
               <Quote className="w-12 h-12 text-white/20 mb-8" />
               <p className="text-xl md:text-2xl font-light italic text-gray-300 leading-relaxed mb-10">

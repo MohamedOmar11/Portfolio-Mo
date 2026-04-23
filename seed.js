@@ -26,8 +26,12 @@ async function seed() {
     await mongoose.connect(uri);
     console.log('Connected to MongoDB');
 
-    const email = 'MohamedOmar@example.com';
-    const password = '102030Mm.?';
+    const email = process.env.ADMIN_EMAIL || 'admin@example.com';
+    const password = process.env.ADMIN_PASSWORD;
+    if (!password) {
+      console.error('ADMIN_PASSWORD is not defined');
+      process.exit(1);
+    }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {

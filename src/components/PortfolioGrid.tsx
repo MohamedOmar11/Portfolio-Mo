@@ -4,8 +4,10 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
+import { useContent } from '@/components/ContentProvider';
 
 export function PortfolioGrid() {
+  const { get } = useContent();
   const [projects, setProjects] = useState<any[]>([]);
   const [filter, setFilter] = useState('All');
 
@@ -38,7 +40,9 @@ export function PortfolioGrid() {
             viewport={{ once: true }}
             className="text-6xl md:text-8xl font-extrabold tracking-tighter uppercase mb-8 md:mb-0"
           >
-            Selected <br /> Work
+            {get('portfolio.headline', 'Selected\nWork').split('\n')[0]}
+            <br />
+            {get('portfolio.headline', 'Selected\nWork').split('\n')[1] || 'Work'}
           </motion.h2>
 
           <div className="flex flex-wrap gap-4">

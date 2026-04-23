@@ -34,11 +34,15 @@ export default function LeadsPage() {
 
   const handleExport = () => {
     const csvData = [
-      ['Date', 'Name', 'Email', 'Budget', 'Project Type', 'Message'],
+      ['Date', 'Name', 'Email', 'Phone', 'Company', 'Website', 'Timeline', 'Budget', 'Project Type', 'Message'],
       ...leads.map((l: any) => [
         new Date(l.createdAt).toLocaleDateString(),
         l.name,
         l.email,
+        l.phone || '',
+        l.company || '',
+        l.website || '',
+        l.timeline || '',
         l.budget,
         l.projectType,
         l.message || ''
@@ -72,6 +76,7 @@ export default function LeadsPage() {
               <th className="p-4 font-medium text-gray-500">Date</th>
               <th className="p-4 font-medium text-gray-500">Name</th>
               <th className="p-4 font-medium text-gray-500">Email</th>
+              <th className="p-4 font-medium text-gray-500">Phone</th>
               <th className="p-4 font-medium text-gray-500">Project Type</th>
               <th className="p-4 font-medium text-gray-500">Budget</th>
               <th className="p-4 font-medium text-gray-500 text-right">Actions</th>
@@ -80,7 +85,7 @@ export default function LeadsPage() {
           <tbody className="divide-y">
             {leads.length === 0 ? (
               <tr>
-                <td colSpan={6} className="p-8 text-center text-gray-500">
+                <td colSpan={7} className="p-8 text-center text-gray-500">
                   No leads received yet.
                 </td>
               </tr>
@@ -90,8 +95,9 @@ export default function LeadsPage() {
                   <td className="p-4 text-gray-500">{new Date(lead.createdAt).toLocaleDateString()}</td>
                   <td className="p-4 font-medium">{lead.name}</td>
                   <td className="p-4 text-gray-500">{lead.email}</td>
+                  <td className="p-4 text-gray-500">{lead.phone || '-'}</td>
                   <td className="p-4">
-                    <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                    <span className="px-3 py-1 bg-[color:var(--accent2)]/15 text-[color:var(--accent2)] rounded-full text-xs font-medium">
                       {lead.projectType}
                     </span>
                   </td>

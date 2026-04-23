@@ -1,13 +1,38 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Send, CheckCircle2 } from 'lucide-react';
+import { useContent } from '@/components/ContentProvider';
 
 export function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', budget: '', projectType: '', message: '' });
+  const { get } = useContent();
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    website: '',
+    timeline: '',
+    budget: '',
+    projectType: '',
+    message: '',
+  });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    const selectedService = window.sessionStorage.getItem('selectedService');
+    if (selectedService) {
+      setFormData((prev) => ({
+        ...prev,
+        projectType: prev.projectType || selectedService,
+        message: prev.message || `Interested in: ${selectedService}`,
+      }));
+      window.sessionStorage.removeItem('selectedService');
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +45,17 @@ export function Contact() {
       });
       if (res.ok) {
         setSuccess(true);
-        setFormData({ name: '', email: '', budget: '', projectType: '', message: '' });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          website: '',
+          timeline: '',
+          budget: '',
+          projectType: '',
+          message: '',
+        });
       }
     } catch (error) {
       console.error(error);
@@ -38,20 +73,27 @@ export function Contact() {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-6xl md:text-8xl font-extrabold tracking-tighter uppercase mb-8">
-            Let&apos;s <br /> Talk
+            {get('contact.headline', "Let's\nTalk").split('\n')[0]}
+            <br />
+            {get('contact.headline', "Let's\nTalk").split('\n')[1] || 'Talk'}
           </h2>
           <p className="text-2xl text-gray-500 mb-16 font-light max-w-lg leading-relaxed">
-            Ready to elevate your brand? Fill out the form or schedule a call directly.
+            {get('contact.subheadline', 'Ready to elevate your brand? Fill out the form or schedule a call directly.')}
           </p>
 
           <div className="space-y-12">
             <div>
               <div className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Email</div>
-              <a href="mailto:hello@studio.com" className="text-2xl md:text-4xl font-bold hover:text-orange-500 transition-colors">hello@studio.com</a>
+              <a
+                href={`mailto:${get('contact.email', 'hello@studio.com')}`}
+                className="text-2xl md:text-4xl font-bold hover:text-[color:var(--accent)] transition-colors"
+              >
+                {get('contact.email', 'hello@studio.com')}
+              </a>
             </div>
             <div>
               <div className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">Location</div>
-              <div className="text-2xl font-bold">New York, NY</div>
+              <div className="text-2xl font-bold">{get('contact.location', 'New York, NY')}</div>
             </div>
           </div>
         </motion.div>
@@ -105,6 +147,58 @@ export function Contact() {
                       className="w-full bg-transparent border-b-2 border-gray-200 py-3 text-xl focus:outline-none focus:border-black transition-colors"
                       placeholder="john@example.com"
                     />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">Phone</label>
+                    <input
+                      required
+                      type="tel"
+                      value={formData.phone}
+                      onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full bg-transparent border-b-2 border-gray-200 py-3 text-xl focus:outline-none focus:border-black transition-colors"
+                      placeholder="+1 555 000 0000"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">Company</label>
+                    <input
+                      type="text"
+                      value={formData.company}
+                      onChange={e => setFormData({ ...formData, company: e.target.value })}
+                      className="w-full bg-transparent border-b-2 border-gray-200 py-3 text-xl focus:outline-none focus:border-black transition-colors"
+                      placeholder="Your Company"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div>
+                    <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">Website (Optional)</label>
+                    <input
+                      type="url"
+                      value={formData.website}
+                      onChange={e => setFormData({ ...formData, website: e.target.value })}
+                      className="w-full bg-transparent border-b-2 border-gray-200 py-3 text-xl focus:outline-none focus:border-black transition-colors"
+                      placeholder="https://"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">Timeline</label>
+                    <select
+                      required
+                      value={formData.timeline}
+                      onChange={e => setFormData({ ...formData, timeline: e.target.value })}
+                      className="w-full bg-transparent border-b-2 border-gray-200 py-3 text-xl focus:outline-none focus:border-black transition-colors appearance-none"
+                    >
+                      <option value="" disabled>Select Timeline</option>
+                      <option value="ASAP">ASAP</option>
+                      <option value="2-4 weeks">2-4 weeks</option>
+                      <option value="1-2 months">1-2 months</option>
+                      <option value="Flexible">Flexible</option>
+                    </select>
                   </div>
                 </div>
 
