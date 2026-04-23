@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/admin/login',
   },
-  secret: process.env.NEXTAUTH_SECRET || 'fallback_secret_for_development',
+  secret: process.env.NEXTAUTH_SECRET || 'super-secret-key-for-next-auth-12345-portfolio',
 };
 
 const handler = NextAuth(authOptions);
