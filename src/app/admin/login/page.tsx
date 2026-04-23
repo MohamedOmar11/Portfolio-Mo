@@ -4,6 +4,8 @@ import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { CustomCursor } from '@/components/CustomCursor';
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,7 +28,8 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 text-gray-900 cursor-none">
+      <CustomCursor />
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border">
         <h1 className="text-2xl font-bold text-center mb-6">Admin Login</h1>
         {error && <div className="bg-red-50 text-red-500 p-3 rounded-lg mb-4 text-sm">{error}</div>}

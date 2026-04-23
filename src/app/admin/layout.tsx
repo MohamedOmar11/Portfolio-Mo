@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useEffect } from 'react';
 import { LayoutDashboard, Briefcase, FileText, Settings, Users, MessageSquare, LogOut } from 'lucide-react';
 
+import { CustomCursor } from '@/components/CustomCursor';
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -39,7 +41,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="flex h-screen bg-gray-50 text-gray-900">
+    <div className="flex h-screen bg-gray-50 text-gray-900 cursor-none">
+      <CustomCursor />
       <aside className="w-64 bg-white border-r flex flex-col">
         <div className="p-6 text-xl font-bold border-b">Admin Panel</div>
         <nav className="flex-1 p-4 space-y-2">
