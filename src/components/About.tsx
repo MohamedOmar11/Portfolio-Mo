@@ -46,7 +46,7 @@ export function About() {
         >
           <div className="aspect-[3/4] bg-zinc-900 rounded-3xl overflow-hidden grayscale hover:grayscale-0 transition duration-700">
             <img
-              src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=Modern+minimalist+office+space+with+plants+and+natural+light&image_size=portrait_3_4"
+              src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop"
               alt="Studio"
               className="w-full h-full object-cover"
             />

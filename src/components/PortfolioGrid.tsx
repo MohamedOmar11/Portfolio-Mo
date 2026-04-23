@@ -75,7 +75,7 @@ export function PortfolioGrid() {
               <Link href={`/project/${project.slug}`}>
                 <div className="relative overflow-hidden rounded-2xl aspect-[4/5] md:aspect-square bg-gray-200 mb-6">
                   <img
-                    src={project.thumbnail || `https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodeURIComponent(project.title)}&image_size=portrait_4_3`}
+                    src={project.thumbnail || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop'}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />

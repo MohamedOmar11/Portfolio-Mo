@@ -45,25 +45,39 @@ export default function ContentPage() {
   ];
 
   useEffect(() => {
+    const fetchContent = () => {
+      fetch('/api/content')
+        .then((res) => res.json())
+        .then((data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            // ensure existing items have a type, defaulting to text
+            setContentList(data.map(item => ({ ...item, type: item.type || 'text' })));
+          } else {
+            setContentList(defaultKeys.map((item, i) => ({ ...item, _id: `temp-${i}` })));
+          }
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error('Failed to fetch content', err);
+          setLoading(false);
+        });
+    };
+    
     fetchContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchContent = () => {
+  const fetchContentData = () => {
     fetch('/api/content')
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
-          // ensure existing items have a type, defaulting to text
           setContentList(data.map(item => ({ ...item, type: item.type || 'text' })));
         } else {
           setContentList(defaultKeys.map((item, i) => ({ ...item, _id: `temp-${i}` })));
         }
-        setLoading(false);
       })
-      .catch((err) => {
-        console.error('Failed to fetch content', err);
-        setLoading(false);
-      });
+      .catch((err) => console.error('Failed to fetch content', err));
   };
 
   const handleAddRow = () => {
@@ -89,7 +103,7 @@ export default function ContentPage() {
 
     if (res.ok) {
       alert('Saved!');
-      fetchContent();
+      fetchContentData();
     } else {
       alert('Failed to save.');
     }
@@ -132,7 +146,7 @@ export default function ContentPage() {
               <h2 className="text-lg font-bold uppercase tracking-wider text-gray-700">{section} Section</h2>
             </div>
             <div className="p-6 space-y-6">
-              {groupedContent[section].map((item) => (
+              {groupedContent[section].map((item: any) => (
                 <div key={item._id} className="grid grid-cols-12 gap-6 items-start border-b pb-6 last:border-0 last:pb-0">
                   <div className="col-span-12 md:col-span-2">
                     <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Key Name</label>

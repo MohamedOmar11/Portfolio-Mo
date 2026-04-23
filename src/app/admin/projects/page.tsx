@@ -104,7 +104,11 @@ export default function ProjectsPage() {
               projects.map((project: any) => (
                 <tr key={project._id} className="hover:bg-gray-50">
                   <td className="p-4">
-                    <img src={project.thumbnail} alt={project.title} className="w-16 h-16 object-cover rounded-lg" />
+                    {project.thumbnail ? (
+                      <img src={project.thumbnail} alt={project.title} className="w-16 h-16 object-cover rounded-lg" />
+                    ) : (
+                      <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center text-xs text-gray-400">No Image</div>
+                    )}
                   </td>
                   <td className="p-4 font-medium">{project.title}</td>
                   <td className="p-4 text-gray-500">{project.category}</td>
